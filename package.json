@@ -9,7 +9,7 @@
     "rimraf": "^5.0.5"
   },
   "dependencies": {
-    "@cap-js/postgres": "^1"
+    "@cap-js/postgres": "^1.10.4"
   },
   "scripts": {
     "undeploy": "cf undeploy pos_admin_btp --delete-services --delete-service-keys --delete-service-brokers",

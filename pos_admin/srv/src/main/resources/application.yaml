@@ -1,0 +1,29 @@
+---
+spring:
+  datasource:
+    password: postgres
+    embedded-database-connection: none
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+  config:
+    activate:
+      on-profile: default
+cds:
+  data-source:
+    auto-config:
+      enabled: false
+---
+management:
+  endpoint:
+    health:
+      show-components: always
+      probes.enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  health:
+    defaults.enabled: false
+    ping.enabled: true
+    db.enabled: true
