@@ -1,0 +1,222 @@
+<mvc:View controllerName="com.posadminbtp.system.ManageSystem"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:plugins="sap.m.plugins"
+	xmlns:columnmenu="sap.m.table.columnmenu"
+	xmlns:sap.ui.fl="sap.ui.fl"
+	xmlns:sap.ui.dt="sap.ui.dt"
+	xmlns:vm="sap.ui.fl.variants"
+	xmlns:dnd="sap.ui.core.dnd"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:f="sap.f"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:c="sap.ui.core" displayBlock="true" height="100%" busyIndicatorDelay="0">
+	<f:DynamicPage toggleHeaderOnTitleClick="false">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>ms_title}"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader>
+				<f:content>
+					<fb:FilterBar id="filter_system" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" showClearOnFB="true" clear="onClear" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem name="ID" label="{i18n>ms_id}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{filterMdl>/id}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Name" label="{i18n>ms_name}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{filterMdl>/name}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Description" label="{i18n>ms_description}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{filterMdl>/description}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="MAC address" label="{i18n>ms_macAddress}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<Input value="{filterMdl>/macAddress}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+
+							<fb:FilterGroupItem name="Configuration" label="{i18n>ms_configuration}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<MultiComboBox items="{masterdataMdl>/configuration}" selectedKeys="{filterMdl>/configuration}">
+										<core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+
+							<fb:FilterGroupItem name="Company" label="{i18n>ms_company}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<MultiComboBox items="{masterdataMdl>/company}" selectedKeys="{filterMdl>/company}">
+										<core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+
+							<fb:FilterGroupItem name="SalesOrg" label="{i18n>ms_salesOrg}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<MultiComboBox items="{masterdataMdl>/salesOrg}" selectedKeys="{filterMdl>/salesOrg}">
+										<core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="SalesOffice" label="{i18n>ms_salesOffice}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<MultiComboBox items="{masterdataMdl>/salesoffice}" selectedKeys="{filterMdl>/salesoffice}">
+										<core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Created At" label="{i18n>ms_createdAt}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<DateTimePicker value="{filterMdl>/createdAt}" placeholder=" "/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Updated At" label="{i18n>ms_updatedAt}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<DateTimePicker value="{filterMdl>/updatedAt}" placeholder=" "/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Created By" label="Created By" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<Input value="{filterMdl>/createdBy}" placeholder=" "/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Updated By" label="Updated By" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<Input value="{filterMdl>/updatedBy}" placeholder=" "/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Status" label="{i18n>ms_status}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<MultiComboBox items="{masterdataMdl>/status}" selectionChange=".onSelectionChange" selectedKeys="{filterMdl>/status}">
+										<core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<!-- DynamicPage Content -->
+		<f:content>
+			<Table id="table_System" mode="SingleSelectMaster" itemPress="onListItemPress" inset="false" items="{path:'systemMdl>/'}" class="sapFDynamicPageAlignContent" width="auto" autoPopinMode="true" contextualWidth="Auto">
+				<headerToolbar>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://add-document" tooltip="{i18n>cfg_create}" type="Transparent" press="onCreateSystem"/>
+						<Button icon="sap-icon://action-settings" press="openPersoDialog" tooltip="{i18n>ms_settings}"/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<infoToolbar>
+					<OverflowToolbar id="filterInfo">
+						<Title text="{= 'Items ('+ ${systemMdl>/}.length +')'}"/>
+						<ToolbarSpacer />
+						<!-- <Button tooltip="{i18n>ms_removeAllFilters}" icon="sap-icon://decline" type="Transparent" press="onClearFilterPress" /> -->
+					</OverflowToolbar>
+				</infoToolbar>
+				<dependents>
+					<plugins:ColumnResizer columnResize="onColumnResize"/>
+					<columnmenu:Menu id="menu" beforeOpen="beforeOpenColumnMenu">
+						<columnmenu:QuickSort change="onSort">
+							<columnmenu:items>
+								<columnmenu:QuickSortItem></columnmenu:QuickSortItem>
+							</columnmenu:items>
+						</columnmenu:QuickSort>
+						<columnmenu:QuickGroup change="onGroup">
+							<columnmenu:items>
+								<columnmenu:QuickGroupItem></columnmenu:QuickGroupItem>
+							</columnmenu:items>
+						</columnmenu:QuickGroup>
+						
+					</columnmenu:Menu>
+				</dependents>
+				<noData>
+					<IllustratedMessage/>
+				</noData>
+				<columns>
+					<Column id="id_col" width="5rem" headerMenu="menu"  hAlign="Center" importance="High">
+						<Text text="{i18n>ms_id}" />
+					</Column>
+					<Column id="name_col" importance="High" headerMenu="menu" >
+						<Text text="{i18n>ms_name}" />
+					</Column>
+					<Column id="description_col" importance="Medium" headerMenu="menu" >
+						<Text text="{i18n>ms_description}" />
+					</Column>
+					<Column id="mac_col" importance="Medium" headerMenu="menu" >
+						<Text text="{i18n>ms_macAddress}" />
+					</Column>
+					<Column id="comp_col" importance="Medium" visible="false" headerMenu="menu" >
+						<Text text="{i18n>ms_company}" />
+					</Column>
+					<Column id="conf_col" importance="Medium" headerMenu="menu" >
+						<Text text="{i18n>ms_configuration}" />
+					</Column>
+					<Column id="org_col" importance="Low" visible="false" headerMenu="menu" >
+						<Text text="{i18n>ms_salesOrg}"/>
+					</Column>
+					<Column id="office_col" importance="Low" visible="false" headerMenu="menu" >
+						<Text text="{i18n>ms_salesOffice}" />
+					</Column>
+					<Column id="createdAt_col" importance="Low" hAlign="Center" visible="false" headerMenu="menu" >
+						<Text text="{i18n>ms_createdAt}" />
+					</Column>
+					<Column id="updatedAt_col" importance="Low" hAlign="Center" visible="false" headerMenu="menu" >
+						<Text text="{i18n>ms_updatedAt}" />
+					</Column>
+					<Column id="createdBy_col" importance="Low" hAlign="Center" visible="false" headerMenu="menu" >
+						<Text text="Created By" />
+					</Column>
+					<Column id="updatedBy_col" importance="Low" hAlign="Center" visible="false" headerMenu="menu" >
+						<Text text="Updated By" />
+					</Column>
+					<Column id="status_col" width="5rem" importance="Low" headerMenu="menu" >
+						<Text text="{i18n>ms_status}" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation">
+						<cells>
+							<ObjectIdentifier title="{systemMdl>id}"/>
+							<Text text="{systemMdl>name}"/>
+							<Text text="{systemMdl>description}"/>
+							<Text text="{systemMdl>macAddress}"/>
+							<Text text="{path:'systemMdl>company', formatter:'.companyFormatter'}"/>
+							<Text text="{path:'systemMdl>configuration', formatter:'.configurationFormatter'}"/>
+							<Text text="{path:'systemMdl>salesOrg', formatter:'.salesOrgFormatter'}"/>
+							<Text text="{path:'systemMdl>salesoffice', formatter:'.salesofficeFormatter'}"/>
+							<Text text="{systemMdl>createdAt}"/>
+							<Text text="{systemMdl>updatedAt}"/>
+							<Text text="{systemMdl>createdBy}"/>
+							<Text text="{systemMdl>updatedBy}"/>
+							<ObjectStatus text="{path:'systemMdl>status', formatter:'.formatter.statusText'}" state="{path:'systemMdl>status', formatter:'.formatter.statusState'}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+
+		<!-- DynamicPage Footer -->
+		<f:footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Accept"/>
+				<Button type="Reject" text="Reject"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

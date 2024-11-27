@@ -1,0 +1,9 @@
+/* Enter your custom styles here */
+
+.checkConnectionSuccess {
+	color: green;
+}
+
+.hidePasswordInTextField{
+	-webkit-text-security: disc;
+}

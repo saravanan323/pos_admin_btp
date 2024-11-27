@@ -1,0 +1,74 @@
+<mvc:View controllerName="com.posadminbtp.configuration.CreateConfiguration"
+    xmlns:uxap="sap.uxap"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:field="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" displayBlock="true" height="100%" busyIndicatorDelay="0">
+    <uxap:ObjectPageLayout id="oplCreateConfig" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" showFooter="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <HBox alignItems="Center">
+                        <Title text="{i18n>cfg_createScreenTitle}" wrapping="true"/>
+                        <core:Icon class="sapUiTinyMarginBegin" color="{configurationMdl>/connectionStateColor}" src="{configurationMdl>/connectionStateIcon}" size="1rem" busyIndicatorSize="Auto"/>
+                    </HBox>
+                </uxap:expandedHeading>
+
+                <uxap:navigationActions>
+                    <Button icon="sap-icon://connected" tooltip="{i18n>cfg_checkConnection}" type="Transparent" press="onPressCheckConnection" />
+                    <ToolbarSeparator/>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="{i18n>tltip_enterFullScreen}" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="{i18n>tltip_exitFullScreen}" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="{i18n>tltip_closeMiddleColumn}" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+                </uxap:navigationActions>
+
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection>
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <form:SimpleForm id="sfConfigGen" editable="true" layout="ColumnLayout" columnsXL="4" columnsL="3" columnsM="2">
+                                <form:content>
+                                    <Label text="{i18n>cfg_name}" required="true"/>
+                                    <Input value="{configurationMdl>/name}" field:type="Input"/>
+                                    <Label text="{i18n>cfg_type}"/>
+                                    <ComboBox items="{masterdataMdl>/type}" selectedKey="{configurationMdl>/typeId}" editable="{visible>/edit}">
+                                        <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                    </ComboBox>
+                                    <Label text="{i18n>cfg_endpoint}" required="true"/>
+                                    <Input value="{configurationMdl>/endpoint}" field:type="Input"/>
+                                    <Label text="{i18n>cfg_username}" required="true"/>
+                                    <Input value="{configurationMdl>/username}" field:type="Input"/>
+                                    <Label text="{i18n>cfg_password}" labelFor="inpPassword" required="true" />
+                                    <Input value="{configurationMdl>/password}" id="inpPassword" type="Password" showValueHelp="true" valueHelpIconSrc="sap-icon://show" valueHelpRequest="onShowPassword" field:type="Input"/>
+                                    <Label text="{i18n>cfg_systemType}" required="true"/>
+                                    <Select items="{masterdataMdl>/systemType}" selectedKey="{configurationMdl>/systemType}" field:type="Select">
+                                        <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                    </Select>
+                                    <Label text="{i18n>cfg_status}"/>
+                                    <ComboBox items="{masterdataMdl>/Status}" selectedKey="{configurationMdl>/status}">
+                                        <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                    </ComboBox>
+                                </form:content>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar >
+                <Button id="errorBtnCrtConfig" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Reject" press="handleMessagePopoverPress" ariaHasPopup="Dialog" />
+                <ToolbarSpacer />
+
+                <Button icon="sap-icon://save" tooltip="{i18n>btn_save}" text="{i18n>btn_save}" type="Success" press="onPressSave"/>
+                <Button icon="sap-icon://sys-cancel" tooltip="{i18n>btn_cancel}" text="{i18n>btn_cancel}" type="Reject" press="onPressCancel"/>
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

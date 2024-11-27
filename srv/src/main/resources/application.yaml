@@ -1,0 +1,15 @@
+---
+spring:
+  datasource:
+    password: root
+    embedded-database-connection: none
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/pos_admin
+    username: pos_admin
+  config:
+    activate:
+      on-profile: default
+cds:
+  data-source:
+    auto-config:
+      enabled: false

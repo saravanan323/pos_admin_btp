@@ -1,0 +1,244 @@
+<mvc:View controllerName="com.posadminbtp.user.ManageUser"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:plugins="sap.m.plugins"
+	xmlns:columnmenu="sap.m.table.columnmenu"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:f="sap.f"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:c="sap.ui.core" displayBlock="true" height="100%" busyIndicatorDelay="0">
+	<f:DynamicPage toggleHeaderOnTitleClick="false">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>mu_manageusers}"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader>
+				<f:content>
+					<fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" showClearOnFB="true" clear="onClear" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem name="ID" label="{i18n>mu_id}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{filterMdl>/id}" />
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Name" label="{i18n>mu_name}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{filterMdl>/name}" />
+								</fb:control>
+							</fb:FilterGroupItem>
+
+							<fb:FilterGroupItem name="Description" groupName="Group1" label="{i18n>mu_description}" visibleInFilterBar="false">
+								<fb:control>
+									<Input value="{filterMdl>/description}" />
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Email" groupName="Group1" label="{i18n>mu_email}" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{filterMdl>/email}" />
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="User name" groupName="Group1" label="{i18n>mu_userName}" visibleInFilterBar="false">
+								<fb:control>
+									<Input value="{filterMdl>/username}" />
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Password" groupName="Group1" label="{i18n>mu_password}" visibleInFilterBar="false">
+								<fb:control>
+									<Input value="{filterMdl>/password}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="InitialPassword" groupName="Group1" label="{i18n>mu_initailPassword}" visibleInFilterBar="false">
+								<fb:control>
+									<MultiComboBox items="{masterdataMdl>/initialPassword}" selectedKeys="{filterMdl>/initialPassword}"  selectionChange="onChangeSelection">
+										<core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+
+							<fb:FilterGroupItem name="Valid From" groupName="Group1" label="{i18n>mu_validFrom}" visibleInFilterBar="false">
+								<fb:control>
+									<DatePicker placeholder=" " displayFormat="dd-MM-yyyy" valueFormat="dd-MM-yyyy" value="{filterMdl>/validFrom}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Valid To" groupName="Group1" label="{i18n>mu_validTo}" visibleInFilterBar="false">
+								<fb:control>
+									<DatePicker placeholder=" " displayFormat="dd-MM-yyyy" valueFormat="dd-MM-yyyy" value="{filterMdl>/validTo}" />
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="System" groupName="Group1" label="{i18n>mu_system}" visibleInFilterBar="false">
+								<fb:control>
+									<MultiComboBox items="{masterdataMdl>/system}"  selectedKeys="{filterMdl>/system}">
+										<core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="User Type" groupName="Group1" label="{i18n>mu_userType}"  visibleInFilterBar="false">
+								<fb:control>
+									<MultiComboBox items="{masterdataMdl>/userType}"  selectedKeys="{filterMdl>/userType}">
+										<core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Created At" groupName="Group1" label="{i18n>mu_createdAt}" visibleInFilterBar="false">
+								<fb:control>
+									<DateTimePicker placeholder=" "   value="{filterMdl>/createdAt}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+
+							<fb:FilterGroupItem name="Updated At" groupName="Group1" label="{i18n>mu_updatedAt}" visibleInFilterBar="false">
+								<fb:control>
+									<DateTimePicker placeholder=" " value="{filterMdl>/updatedAt}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Created By" groupName="Group1" label="Created By" visibleInFilterBar="false">
+								<fb:control>
+									<Input placeholder=" " displayFormat="dd-MM-yyyy" valueFormat="dd-MM-yyyy"  value="{filterMdl>/createdAt}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+
+							<fb:FilterGroupItem name="Updated By" groupName="Group1" label="Updated By" visibleInFilterBar="false">
+								<fb:control>
+									<Input placeholder=" " displayFormat="dd-MM-yyyy"  valueFormat="dd-MM-yyyy" value="{filterMdl>/updatedAt}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Status" groupName="Group1" label="{i18n>mu_status}" visibleInFilterBar="true">
+								<fb:control>
+									<MultiComboBox  items="{masterdataMdl>/status}"  selectionChange=".onSelectionChange" selectedKeys="{filterMdl>/status}">
+										<core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<!-- DynamicPage Content -->
+		<f:content>
+
+			<Table id="userTable" mode="SingleSelectMaster" itemPress="onListItemPress" inset="false" items="{path:'/'}" class="sapFDynamicPageAlignContent" width="auto" autoPopinMode="true" contextualWidth="Auto">
+				<headerToolbar>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button icon ="sap-icon://add-document" tooltip="{i18n>cfg_create}"  type="Transparent" press="onCreateButtonPress"/>
+						<Button icon="sap-icon://action-settings" press="openPersoDialog" tooltip="{i18n>mu_settings}"/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<infoToolbar>
+					<OverflowToolbar id="filterInfo"  visible="true" design="Info"  press="onFilterInfoPress">
+						  <Title text="{= 'Items (' + ${/}.length + ')'}"/>
+						<ToolbarSpacer />
+						<!-- <Button tooltip="{i18n>mu_removeAllFilters}" icon="sap-icon://decline" type="Transparent" press="onClearFilterPress" /> -->
+					</OverflowToolbar>
+				</infoToolbar>
+				<dependents>
+					<plugins:ColumnResizer columnResize="onColumnResize"/>
+					<columnmenu:Menu id="menu" beforeOpen="beforeOpenColumnMenu">
+						<columnmenu:QuickSort change="onSort">
+							<columnmenu:items>
+								<columnmenu:QuickSortItem></columnmenu:QuickSortItem>
+							</columnmenu:items>
+						</columnmenu:QuickSort>
+						<columnmenu:QuickGroup change="onGroup">
+							<columnmenu:items>
+								<columnmenu:QuickGroupItem></columnmenu:QuickGroupItem>
+							</columnmenu:items>
+						</columnmenu:QuickGroup>
+						
+					</columnmenu:Menu>
+				</dependents>
+				<noData>
+					<IllustratedMessage/>
+				</noData>
+				<columns>
+					<Column id="id_col" width="5rem" importance="High" headerMenu="menu" visible="true" hAlign="Center">
+						<Text text="{i18n>mu_id}" />
+					</Column>
+					<Column id="name_col" importance="High" visible="true" headerMenu="menu" >
+						<Text text="{i18n>mu_name}" />
+					</Column>
+					<Column id="description_col" visible="false" headerMenu="menu" >
+						<Text text="{i18n>mu_description}"/>
+					</Column>
+					<Column id="email_col" visible="true" headerMenu="menu" >
+						<Text text="{i18n>mu_email}"/>
+					</Column>
+					<Column id="username_col" importance="Medium" visible="false" headerMenu="menu" >
+						<Text text="{i18n>mu_userName}"/>
+					</Column>
+					<Column id="password_col" visible="false" headerMenu="menu" >
+						<Text text="{i18n>mu_password}"/>
+					</Column>
+					<Column id="initail_password_col" visible="true" hAlign="Center" headerMenu="menu" >
+						<Text text="{i18n>mu_initailPassword}"/>
+					</Column>
+					<Column id="valid_from_col" visible="false" headerMenu="menu" >
+						<Text text="{i18n>mu_validFrom}"/>
+					</Column>
+					<Column id="valid_to_col" visible="false" headerMenu="menu" >
+						<Text text="{i18n>mu_validTo}"/>
+					</Column>
+					<Column id="system_col" visible="false" headerMenu="menu" >
+						<Text text="{i18n>mu_system}"/>
+					</Column>
+					<Column id="user_type_col" visible="false" headerMenu="menu" >
+						<Text text="{i18n>mu_userType}"/>
+					</Column>
+					<Column id="createdAt_col" visible="false" headerMenu="menu" >
+						<Text text="{i18n>mu_createdAt}" />
+					</Column>
+					<Column id="updatedAt_col" visible="false" headerMenu="menu" >
+						<Text text="{i18n>mu_updatedAt}" />
+					</Column>
+					<Column id="createdBy_col" visible="false" headerMenu="menu" >
+						<Text text="Created By" />
+					</Column>
+					<Column id="updatedBy_col" visible="false" headerMenu="menu" >
+						<Text text="Updated By" />
+					</Column>
+					<Column id="status_col" width="5rem" headerMenu="menu" >
+						<Text text="{i18n>mu_status}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation">
+						<cells>
+							<Text text="{id}" />
+							<Text text="{name}"/>
+							<Text text="{description}"/>
+							<Text text="{email}"/>
+							<Text text="{username}"/>
+							<Text class="hidePasswordInTextField" text="{password}"/>
+							<CheckBox selected="{initialPassword}" enabled="false"/>
+							<Text text="{validFrom}"/>
+							<Text text="{validTo}"/>
+							<Text text="{path:'system', formatter:'.systemFormatter'}"/>
+							<Text text="{path:'userType', formatter:'.userTypeFormatter'}"/>
+							<Text text="{createdAt}"/>
+							<Text text="{updatedAt}"/>
+							<Text text="{createdBy}"/>
+							<Text text="{updatedBy}"/>
+							<ObjectStatus text="{= ${status}===2?'Active':'Inactive'}" state="{= ${status}===2?'Success':'Error'}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+
+		</f:content>
+
+		<!-- DynamicPage Footer -->
+		<f:footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="{i18n>mu_accept}"/>
+				<Button type="Reject" text="{i18n>mu_reject}"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

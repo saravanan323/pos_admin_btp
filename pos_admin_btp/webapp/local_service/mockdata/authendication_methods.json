@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "name": "Basic Authentication",
+        "createdOn": "",
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 2,
+        "name": "Client Certificate Authentication",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 3,
+        "name": "No Authentication",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 4,
+        "name": "OAuth2 Client Credentials",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 5,
+        "name": "OAuth2 JWT Bearer",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 6,
+        "name": "OAuth2 Password",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 7,
+        "name": "OAuth2 Refresh Token",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 8,
+        "name": "OAuth2 SAML Bearer Assertion",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 9,
+        "name": "OAuth2 User Token Exchange",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 10,
+        "name": "SAML Assertion",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    }
+]

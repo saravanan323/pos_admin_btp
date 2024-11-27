@@ -1,0 +1,27 @@
+<mvc:View controllerName="com.posadminbtp.initial.AppUnified"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f">
+    <Page id="basePageId" titleAlignment="Start" showFooter="false">
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <!--  <Button icon="sap-icon://navigation-left-arrow" tooltip="Back" type="Ghost" press="onNavBack"/> -->
+                    <Image src="./images/inflexion.png" height="30px" press="onPressLogo" class="sapUiTinyMarginEnd"/>
+                    <Title text="{settings>/genericTitle}"/>
+                </contentLeft>
+                <contentMiddle>
+                    
+                </contentMiddle>
+                <contentRight>
+                    <Button icon="sap-icon://hint" type="Transparent" tooltip="{i18n>auBtnInfoTooltip}"/>
+                    <Button icon="sap-icon://bell" type="Transparent" tooltip="{i18n>auBtnNotifyTooltip}"/>
+                    <Avatar initials="S" displaySize="XS" press=".menuPopoverOpen" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <f:FlexibleColumnLayout id="fcl" stateChange=".onStateChanged" backgroundDesign="Solid" layout="{/layout}"/>
+        </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,119 @@
+<mvc:View controllerName="com.posadminbtp.user.UserDetail"
+    xmlns:uxap="sap.uxap"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+     xmlns:field="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:form="sap.ui.layout.form" displayBlock="true" height="100%" busyIndicatorDelay="0">
+    <uxap:ObjectPageLayout id="id_detailuser"  showFooter="{= !${visible>/view} || !!${errors>/}.length}" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="{userMdl>/name}" wrapping="true" class="sapUiSmallMarginEnd"/>
+                </uxap:expandedHeading>
+
+                <uxap:snappedHeading>
+                    <Title text="{userMdl>/name}" wrapping="true" class="sapUiTinyMarginEnd"/>
+                </uxap:snappedHeading>
+
+                <uxap:expandedContent>
+                    <ObjectAttribute title="ID" text="{userMdl>/id}" />
+                </uxap:expandedContent>
+
+                <uxap:snappedContent>
+                    <ObjectAttribute title="ID" text="{userMdl>/id}" />
+                </uxap:snappedContent>
+
+                <uxap:navigationActions>
+                   <OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="{i18n>mu_enterFullScreenMode}" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="{i18n>mu_exitFullScreenMode}" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="{i18n>mu_closemiddlecolumn}" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+                </uxap:navigationActions>
+                <uxap:actions>
+                    <Button   icon="sap-icon://edit"  type="Transparent" enabled="{visible>/view}" press="onPressEdit" />
+                </uxap:actions>
+
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
+                <VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+                    <Label design="Bold" text="{i18n>mu_createdAt}"/>
+                    <Text text="{userMdl>/createdAt}"/>
+                </VBox>
+                <VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+                    <Label design="Bold" text="{i18n>mu_updatedAt}"/>
+                    <Text text="{userMdl>/updatedAt}"/>
+                </VBox>
+                <VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+                    <Label design="Bold" text="created By"/>
+                    <Text text="{userMdl>/createdBy}"/>
+                </VBox>
+                <VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+                    <Label design="Bold" text="Updated By"/>
+                    <Text text="{userMdl>/updatedBy}"/>
+                </VBox>
+                <VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+                    <Label design="Bold" text="{i18n>mu_status}"/>
+                    <ObjectStatus text="{= ${userMdl>/status}===2?'Active':'Inactive'}" state="{= ${userMdl>/status}===2?'Success':'Error'}"/>
+                </VBox>
+            </FlexBox>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection title="{i18n>mu_general}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <form:SimpleForm id= "id_form" editable="true" layout="ColumnLayout" columnsXL="4" columnsL="3" columnsM="2">
+                                <form:content>
+                                    <Label text="{i18n>mu_name}" required="true"/>
+                                    <Input value="{userMdl>/name}" editable="{visible>/edit}" field:type="Input"/>
+                                    <Label text="{i18n>mu_email}" required="true"/>
+                                    <Input value="{userMdl>/email}" editable="{visible>/edit}" field:type="Input"/>
+                                    <Label text="{i18n>mu_description}"/>
+                                    <Input value="{userMdl>/description}" editable="{visible>/edit}"/>
+                                    <Label text="{i18n>mu_userName}" required="true"/>
+                                    <Input value="{userMdl>/username}" editable="{visible>/edit}" field:type="Input"/>
+                                    <Label text="{i18n>mu_password}" labelFor="inpPassword"  required="true"/>
+                                    <Input value="{userMdl>/password}" id="inpPassword" type="Password"  showValueHelp="true"  valueHelpIconSrc="sap-icon://show" valueHelpRequest="onShowPassword" field:type="Input" editable="{visible>/edit}"/>
+                                    <Label text="{i18n>mu_initailPassword}" />
+                                    <CheckBox selected="{userMdl>/initialPassword}" editable="{visible>/edit}"  />
+                                    <Label text="{i18n>mu_validFrom}"/>
+                                    <DatePicker value="{userMdl>/validFrom}" editable="{visible>/edit}" placeholder=" " displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd"/>
+                                    <Label text="{i18n>mu_validTo}"/>
+                                    <DatePicker value="{userMdl>/validTo}" editable="{visible>/edit}" placeholder=" " displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd" />
+                                    <Label text="{i18n>mu_system}" required="true"/>
+                                    <ComboBox items="{masterdataMdl>/system}"  selectedKey="{userMdl>/system}" editable="{visible>/edit}" field:type="ComboBox">
+                                       <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                    </ComboBox>
+                                    <Label text="{i18n>mu_userType}" required="true"/>
+                                    <ComboBox items="{masterdataMdl>/userType}" selectedKey="{userMdl>/userType}" editable="{visible>/edit}" field:type="ComboBox">
+                                         <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                    </ComboBox>
+
+                                    <Label text="{i18n>mu_status}"/>
+                                    <ComboBox items="{masterdataMdl>/status}" selectedKey="{userMdl>/status}" editable="{visible>/edit}">
+                                        <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                    </ComboBox>
+
+
+                                </form:content>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar >
+                <Button id="errorBtnEdituser" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Reject" press="handleMessagePopoverPress" ariaHasPopup="Dialog"/>
+                <ToolbarSpacer />
+                <Button icon="sap-icon://save" tooltip="{i18n>btn_save}" text="{i18n>btn_save}" type="Success" press="onPressSave"/>
+                <Button icon="sap-icon://sys-cancel" tooltip="{i18n>btn_cancel}" text="{i18n>btn_cancel}" type="Reject" press="onPressCancel"/>
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

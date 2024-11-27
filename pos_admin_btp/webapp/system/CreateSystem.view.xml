@@ -1,0 +1,94 @@
+<mvc:View controllerName="com.posadminbtp.system.CreateSystem"
+    xmlns:uxap="sap.uxap"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:u="sap.ui.unified"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:field="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" displayBlock="true" height="100%" busyIndicatorDelay="0">
+    <uxap:ObjectPageLayout id="creatSystem_page" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" showFooter="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <!-- <Title text="{i18n>ms_newsystem}" wrapping="true" class="sapUiSmallMarginEnd"/> -->
+                    <HBox>
+                        <VBox>
+                            <Image src="{= ${systemMdl>/companyLogoName}?${systemMdl>/companyLogo}:'./images/no-preview.jpg'}" width="80px" class="sapUiSmallMarginEnd">
+                                <detailBox>
+                                    <LightBox>
+                                        <LightBoxItem imageSrc="{= ${systemMdl>/companyLogoName}?${systemMdl>/companyLogo}:'./images/no-preview.jpg'}" title="{systemMdl>/name}" subtitle="{systemMdl>/id}" />
+                                    </LightBox>
+                                </detailBox>
+                            </Image>
+                        </VBox>
+                        <Title text="{i18n>ms_newsystem}" wrapping="true" class="sapUiTinyMarginEnd"/>
+                    </HBox>
+                </uxap:expandedHeading>
+
+                <uxap:snappedHeading>
+                    <Title text="{i18n>ms_newsystem}" wrapping="true" class="sapUiSmallMarginEnd"/>
+                </uxap:snappedHeading>
+
+                <uxap:navigationActions>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="{i18n>ms_enterFullScreenMode}" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="{i18n>ms_exitFullScreenMode}" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="{i18n>ms_closemiddlecolumn}" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+                </uxap:navigationActions>
+
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection title="{i18n>ms_general}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <form:SimpleForm id="form_CS" editable="true" layout="ColumnLayout" columnsXL="4" columnsL="3" columnsM="2" binding="{systemMdl>/}">
+                                <form:content>
+                                    <Label text="{i18n>ms_configuration}" required="true"/>
+                                    <ComboBox items="{masterDataMdl>/configuration}" selectedKey="{systemMdl>configuration}" field:type="ComboBox" change=".onSystemChange">
+                                        <core:Item key="{masterDataMdl>key}" text="{masterDataMdl>text}"  />
+                                    </ComboBox>
+                                    <Label text="{i18n>ms_name}" required="true"/>
+                                    <Input value="{systemMdl>name}" editable="{= ${systemMdl>configuration}?true:false}" field:type="Input"/>
+                                    <Label text="{i18n>ms_description}"/>
+                                    <Input value="{systemMdl>description}" editable="{= ${systemMdl>configuration}?true:false}"/>
+                                    <Label text="{i18n>ms_macAddress}" required="true"/>
+                                    <Input value="{systemMdl>macaddress}" editable="{= ${systemMdl>configuration}?true:false}" field:type="Input"/>
+                                    <Label text="{i18n>ms_company}" required="true"/>
+                                    <ComboBox items="{masterDataMdl>/company}" selectedKey="{systemMdl>company}" field:type="ComboBox" editable="{= ${systemMdl>configuration}?true:false}">
+                                        <core:Item key="{masterDataMdl>key}" text="{masterDataMdl>text}" />
+                                    </ComboBox>
+                                    <Label text="Company Logo" />
+                                    <u:FileUploader width="100%" name="myFileUpload" enabled="{= ${systemMdl>configuration}?true:false}" uploadUrl="upload/" value="{systemMdl>companyLogoName}" change="onFileUploaderChange" placeholder="Maximum file size is 2MB" tooltip="Upload the company logo" fileType="png,jpg" icon="sap-icon://attachment" iconOnly="true" sameFilenameAllowed="true" maximumFileSize="2mb" />
+
+                                    <Label text="{i18n>ms_salesOrg}" required="true"/>
+                                    <ComboBox items="{masterDataMdl>/salesOrg}" selectedKey="{systemMdl>salesOrg}" field:type="ComboBox" editable="{= ${systemMdl>configuration}?true:false}">
+                                        <core:Item key="{masterDataMdl>key}" text="{masterDataMdl>text}" />
+                                    </ComboBox>
+                                    <Label text="{i18n>ms_salesOffice}" required="true"/>
+                                    <ComboBox items="{masterDataMdl>/salesOffice}" selectedKey="{systemMdl>salesoffice}" field:type="ComboBox" editable="{= ${systemMdl>configuration}?true:false}">
+                                        <core:Item key="{masterDataMdl>key}" text="{masterDataMdl>text}" />
+                                    </ComboBox>
+                                    <Label text="{i18n>ms_status}"/>
+                                    <Select items="{masterDataMdl>/status}" selectedKey="{systemMdl>status}" editable="{= ${systemMdl>configuration}?true:false}">
+                                        <core:Item key="{masterDataMdl>key}" text="{masterDataMdl>text}" />
+                                    </Select>
+                                </form:content>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar >
+                <Button id="errorBtnCrtSystem" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Reject"></Button>
+                <ToolbarSpacer />
+                <Button icon="sap-icon://save" tooltip="{i18n>btn_save}" text="{i18n>btn_save}" type="Success" press="onPressSave"/>
+                <Button icon="sap-icon://sys-cancel" tooltip="{i18n>btn_cancel}" text="{i18n>btn_cancel}" type="Reject" press="onPressCancel"/>
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

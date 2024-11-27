@@ -1,0 +1,161 @@
+<mvc:View controllerName="com.posadminbtp.synchronization.ManageSynchronization"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:plugins="sap.m.plugins"
+    xmlns:columnmenu="sap.m.table.columnmenu"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar" displayBlock="true" height="100%" busyIndicatorDelay="0">
+    <f:DynamicPage id="pageMngSychronization" toggleHeaderOnTitleClick="false" showFooter="{= !!${errors>/}.length}">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>sz_title}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader>
+                <f:content>
+                    <fb:FilterBar id="fbSynchronization" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" showClearOnFB="true" clear="onClear" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem name="ID" label="{i18n>sz_id}" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <Input value="{filterMdl>/id}"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem name="Name" label="{i18n>sz_name}" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <Input value="{filterMdl>/name}"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem name="System" label="{i18n>sz_system}" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <MultiComboBox items="{masterdataMdl>/system}" selectedKeys="{filterMdl>/system}">
+                                        <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                    </MultiComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem name="Created At" label="{i18n>sz_createdAt}" groupName="Group1" visibleInFilterBar="false">
+                                <fb:control>
+                                    <DateTimePicker value="{filterMdl>/createdAt}" placeholder=" "/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem name="Updated At" label="{i18n>sz_updatedAt}" groupName="Group1" visibleInFilterBar="false">
+                                <fb:control>
+                                    <DateTimePicker value="{filterMdl>/updatedAt}" placeholder=" "/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem name="Created By" label="Created By" groupName="Group1" visibleInFilterBar="false">
+                                <fb:control>
+                                    <Input value="{filterMdl>/createdBy}" placeholder=" "/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem name="Updated By" label="Updated By" groupName="Group1" visibleInFilterBar="false">
+                                <fb:control>
+                                    <Input value="{filterMdl>/updatedBy}" placeholder=" "/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem name="Status" label="{i18n>sz_status}" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <MultiComboBox items="{masterdataMdl>/Status}" selectionChange=".onSelectionChange" selectedKeys="{filterMdl>/status}">
+                                        <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                    </MultiComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <Table id="tableSynchronization" mode="SingleSelectMaster" itemPress="onListItemPress" inset="false" items="{path:'/'}" class="sapFDynamicPageAlignContent" width="auto" autoPopinMode="true" contextualWidth="Auto">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <ToolbarSpacer/>
+                        <Button icon ="sap-icon://add-document" type="Transparent" press="onCreateConfiguration"/>
+                        <Button icon="sap-icon://action-settings" press="openPersoDialog" tooltip="Settings"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <infoToolbar>
+                    <OverflowToolbar id="filterInfo">
+                        <Title text="{= 'Items (' + ${/}.length + ')'}"/>
+                        <ToolbarSpacer />
+                        <!-- <Button tooltip="Remove All Filters" icon="sap-icon://decline" type="Transparent" press="onClearFilterPress" /> -->
+                    </OverflowToolbar>
+                </infoToolbar>
+                <dependents>
+                    <plugins:ColumnResizer columnResize="onColumnResize"/>
+                    <columnmenu:Menu id="menu" beforeOpen="beforeOpenColumnMenu">
+                        <columnmenu:QuickSort change="onSort">
+                            <columnmenu:items>
+                                <columnmenu:QuickSortItem></columnmenu:QuickSortItem>
+                            </columnmenu:items>
+                        </columnmenu:QuickSort>
+                        <columnmenu:QuickGroup change="onGroup">
+                            <columnmenu:items>
+                                <columnmenu:QuickGroupItem></columnmenu:QuickGroupItem>
+                            </columnmenu:items>
+                        </columnmenu:QuickGroup>
+                       
+                    </columnmenu:Menu>
+                </dependents>
+                <noData>
+                    <IllustratedMessage/>
+                </noData>
+                <columns>
+                    <Column id="id_col" width="5rem" importance="High" headerMenu="menu" visible="true" hAlign="Center">
+                        <Text text="{i18n>sz_id}" />
+                    </Column>
+                    <Column id="name_col" importance="High" visible="true" headerMenu="menu" >
+                        <Text text="{i18n>sz_name}" />
+                    </Column>
+                    <Column id="system_col" width="20rem" importance="Medium" visible="true" headerMenu="menu" >
+                        <Text text="{i18n>sz_system}" />
+                    </Column>
+                    <Column id="createdAt_col" importance="Low" hAlign="Center" visible="false" headerMenu="menu" >
+                        <Text text="{i18n>sz_createdAt}" />
+                    </Column>
+                    <Column id="updatedAt_col" importance="Low" hAlign="Center" visible="false" headerMenu="menu" >
+                        <Text text="{i18n>sz_updatedAt}" />
+                    </Column>
+                    <Column id="createdBy_col" importance="Low" hAlign="Center" visible="false" headerMenu="menu" >
+                        <Text text="Created By" />
+                    </Column>
+                    <Column id="updatedBy_col" importance="Low" hAlign="Center" visible="false" headerMenu="menu" >
+                        <Text text="Updated By" />
+                    </Column>
+                    <Column id="status_col" width="8rem" importance="Low" visible="true" hAlign="Center" headerMenu="menu" >
+                        <Text text="{i18n>sz_status}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation">
+                        <cells>
+                            <Text text="{id}" />
+                            <Text text="{name}"/>
+                            <Text text="{path:'system', formatter:'.typeFormatter'}"/>
+                            <Text text="{createdAt}"/>
+                            <Text text="{updatedAt}"/>
+                            <Text text="{createdBy}"/>
+                            <Text text="{updatedBy}"/>
+                            <ObjectStatus text="{path:'status', formatter:'.formatter.statusText'}" state="{path:'status', formatter:'.formatter.statusState'}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+        </f:content>
+        <!-- DynamicPage Footer -->
+        <!-- <f:footer>
+            <OverflowToolbar>
+                <Button id="errorBtnMngSych" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Reject" press="handleMessagePopoverPress" ariaHasPopup="Dialog" />
+                <ToolbarSpacer/>
+
+            </OverflowToolbar>
+        </f:footer> -->
+    </f:DynamicPage>
+</mvc:View>

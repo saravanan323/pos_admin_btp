@@ -1,0 +1,20 @@
+<mvc:View controllerName="com.posadminbtp.monitor.MonitorDetail"
+    xmlns:uxap="sap.uxap"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form" displayBlock="true" height="100%" busyIndicatorDelay="0">
+    <uxap:ObjectPageLayout id="oplLCDPage" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+        <uxap:headerTitle>
+
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+
+        </uxap:headerContent>
+
+        <uxap:sections>
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

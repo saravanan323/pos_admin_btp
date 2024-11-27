@@ -1,0 +1,75 @@
+<mvc:View controllerName="com.posadminbtp.licence_key_control.CreateLicenceKeyControl"
+    xmlns:uxap="sap.uxap"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:field="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" displayBlock="true" height="100%" busyIndicatorDelay="0">
+    <uxap:ObjectPageLayout id="creatlicence_page" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" showFooter="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="{i18n>lkc_newLicenceKeyControl}" wrapping="true" class="sapUiSmallMarginEnd"/>
+                </uxap:expandedHeading>
+
+                <uxap:snappedHeading>
+                    <Title text="{i18n>lkc_newLicenceKeyControl}" wrapping="true" class="sapUiSmallMarginEnd"/>
+                </uxap:snappedHeading>
+
+                <uxap:navigationActions>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="{i18n>lkc_enterFullScreenMode}" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }"/>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="{i18n>lkc_exitFullScreenMode}" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }"/>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="{i18n>lkc_closemiddlecolumn}" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }"/>
+                </uxap:navigationActions>
+
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection title="{i18n>lkc_general}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <form:SimpleForm id="from_CLKC" editable="true" layout="ColumnLayout" columnsXL="4" columnsL="3" columnsM="2" binding="{licenceKeyControlMdl>/}">
+                                <form:content>
+                                    <Label text="{i18n>lkc_systemID}" required="true"/>
+                                    <ComboBox items="{masterdataMdl>/system}" selectedKey="{licenceKeyControlMdl>system}" field:type="Input">
+                                        <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                    </ComboBox>
+
+                                    <Label text="{i18n>lkc_name}" required="true"/>
+                                    <Input value="{licenceKeyControlMdl>name}" editable="{= ${licenceKeyControlMdl>system}?true:false}" field:type="Input" />
+
+                                    <Label text="{i18n>lkc_description}"/>
+                                    <Input value="{licenceKeyControlMdl>description}" editable="{= ${licenceKeyControlMdl>system}?true:false}"/>
+
+                                    <Label text="{i18n>lkc_licenseKey}" required="true"/>
+                                    <Input value="{licenceKeyControlMdl>licenceKey}" field:type="Input" editable="{= ${licenceKeyControlMdl>system}?true:false}"/>
+
+                                    <Label text="{i18n>lkc_expirationDate}" required="true"/>
+                                    <DatePicker value="{licenceKeyControlMdl>expirationDate}" field:type="Input" editable="{= ${licenceKeyControlMdl>system}?true:false}" placeholder=" "/>
+
+                                    <Label text="{i18n>lkc_statusID}"/>
+                                    <Select items="{masterdataMdl>/Status}" selectedKey="{licenceKeyControlMdl>status}" editable="{= ${licenceKeyControlMdl>system}?true:false}">
+                                        <core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+                                    </Select>
+                                </form:content>
+                            </form:SimpleForm>
+
+
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar >
+                <Button id="errorBtnCrtLicence" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Reject"></Button>
+                <ToolbarSpacer />
+                <Button icon="sap-icon://save" tooltip="{i18n>btn_save}" text="{i18n>btn_save}" type="Success" press="onPressSave"/>
+                <Button icon="sap-icon://sys-cancel" tooltip="{i18n>btn_cancel}" text="{i18n>btn_cancel}" type="Reject" press="onPressCancel"/>
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

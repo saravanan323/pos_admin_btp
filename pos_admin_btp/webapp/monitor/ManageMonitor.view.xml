@@ -1,0 +1,101 @@
+<mvc:View controllerName="com.posadminbtp.monitor.ManageMonitor"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:c="sap.ui.core" displayBlock="true" height="100%" busyIndicatorDelay="0">
+    <f:DynamicPage toggleHeaderOnTitleClick="false">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Manage Monitor"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader>
+                <f:content>
+                    <fb:FilterBar persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem name="Name" label="Name" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <MultiComboBox name="Name" selectionChange=".onSelectionChange" items="{
+												path: '/ProductNames',
+												templateShareable: true
+											}">
+                                        <core:Item key="{key}" text="{name}"/>
+                                    </MultiComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem name="Category" label="Category" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <MultiComboBox name="Category" selectionChange=".onSelectionChange" items="{
+												path: '/ProductCategories',
+												templateShareable: true
+											}">
+                                        <core:Item key="{key}" text="{name}"/>
+                                    </MultiComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem name="SupplierName" label="SupplierName" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <MultiComboBox name="SupplierName" selectionChange=".onSelectionChange" items="{
+												path: '/ProductSuppliers',
+												templateShareable: true
+											}">
+                                        <core:Item key="{key}" text="{name}"/>
+                                    </MultiComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <Table mode="SingleSelectMaster" itemPress="onListItemPress" inset="false" items="{
+					path: 'products>/',
+					sorter: {
+						path: 'Name'
+					}
+				}" class="sapFDynamicPageAlignContent" width="auto">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <ToolbarSpacer/>
+                        <!-- <SearchField search="onSearch" width="17.5rem"/> -->
+                        <OverflowToolbarButton icon="sap-icon://add" type="Transparent" press="onAdd"/>
+                        <OverflowToolbarButton icon="sap-icon://sort" type="Transparent" press="onSort"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="12em">
+                        <Text text="Product" />
+                    </Column>
+                    <Column hAlign="End">
+                        <Text text="Price" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation">
+                        <cells>
+                            <ObjectIdentifier title="{products>ProductName}" text="{products>ProductId}" />
+                            <ObjectNumber number="{path:'products>UnitPrice'}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+
+        <!-- DynamicPage Footer -->
+        <f:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <Button type="Accept" text="Accept"/>
+                <Button type="Reject" text="Reject"/>
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "name": "HTTP",
+        "createdOn": "",
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 2,
+        "name": "LDAP",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 3,
+        "name": "MAIL",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 4,
+        "name": "RFC",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    }
+]

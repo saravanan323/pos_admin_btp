@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "name": "Internet",
+        "createdOn": "",
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 2,
+        "name": "On Premise",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    },
+    {
+        "id": 3,
+        "name": "Private Link",
+        "createdOn": null,
+        "updatedOn": null,
+        "status": 2
+    }
+]

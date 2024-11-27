@@ -1,0 +1,50 @@
+<mvc:View controllerName="com.posadminbtp.initial.Login"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:field="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" height="100%">
+    <!-- showFooter="{=!!${errors>/}.length}" -->
+    <Page id="loginPage" class="login_background " showHeader="false" backgroundDesign="Transparent" showFooter="false" enableScrolling="false">
+        <content>
+            <VBox height="105%" justifyContent="Center" alignItems="Center">
+                <MessageStrip visible="{=!!${errors>/}.length}" text="{i18n>li_error}" customIcon="sap-icon://sys-cancel-2" showIcon="true" showCloseButton="false" class="sapUiSmallMarginBottom loginError">
+                </MessageStrip>
+                <VBox justifyContent="Center" alignItems="Center">
+                    <items>
+                        <f:Card width="30.125rem" height="32.25rem">
+                            <f:content>
+                                <FlexBox class="sapUiMediumMargin" direction="Column" justifyContent="Center" alignItems="Center">
+                                    <HBox alignItems="Center">
+                                       <!--  <Image src="./images/logo.png" height="50px" /> -->
+                                        <Title class="sapUiTinyMarginBegin" wrapping="true" titleStyle="H2" text="{i18n>li_posadmin}" />
+                                    </HBox>
+                                    <form:SimpleForm id="loginForm" class="sapUiSizeCozy" editable="false" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                                        <form:content>
+                                            <Label labelFor="inpEmail" text="{i18n>li_username}" />
+                                            <Input id="inpEmail" value="{path : 'loginModel>/userName'}" field:type="Input" enabled="{loginModel>/enable}"/>
+                                            <Label labelFor="inpPassword" text="{i18n>li_password}" />
+                                            <Input type="Password" id="inpPassword" value="{path : 'loginModel>/password'}" field:type="Input" enabled="{loginModel>/enable}" showValueHelp="true" valueHelpIconSrc="sap-icon://show" valueHelpRequest="onShowPassword"/>
+                                            <HBox justifyContent="End">
+                                                <Link text="{i18n>li_forgotPassword}" press="onPressChangePassword"/>
+                                            </HBox>
+
+                                            <Button id="loginBtn" text="{i18n>li_login}" type="Emphasized" class="sapUiSizeCozy" width="100%" press="onPressLogin"/>
+                                        </form:content>
+                                    </form:SimpleForm>
+                                </FlexBox>
+                            </f:content>
+                        </f:Card>
+                        <Text class="sapUiMediumMarginTop" text="{i18n>li_copyright}" textAlign="Center" />
+                    </items>
+                </VBox>
+            </VBox>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <Button id="messagePopoverBtnLogin" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Negative" text="{i18n>li_buttonerror}" press=".handleMessagePopoverPress" ariaHasPopup="Dialog" />
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

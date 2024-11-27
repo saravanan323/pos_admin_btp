@@ -1,0 +1,203 @@
+<mvc:View controllerName="com.posadminbtp.configuration.ManageConfigurations"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:plugins="sap.m.plugins"
+	xmlns:columnmenu="sap.m.table.columnmenu"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:f="sap.f"
+	xmlns:fb="sap.ui.comp.filterbar" displayBlock="true" height="100%" busyIndicatorDelay="0">
+	<f:DynamicPage id="dpManageConfiguration" toggleHeaderOnTitleClick="false">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>cfg_manageConfigurations}"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader>
+				<f:content>
+					<fb:FilterBar id="fbConfigurations" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" showClearOnFB="true" clear="onClear" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem name="ID" label="{i18n>cfg_id}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{filterMdl>/id}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Name" label="{i18n>cfg_name}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{filterMdl>/name}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Type" label="{i18n>cfg_type}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<MultiComboBox items="{masterdataMdl>/type}" selectedKeys="{filterMdl>/type}">
+										<core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Endpoint" label="{i18n>cfg_endpoint}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{filterMdl>/endpoint}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Username" label="{i18n>cfg_username}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<Input value="{filterMdl>/username}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Password" label="{i18n>cfg_password}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<Input value="{filterMdl>/password}"/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="System Type" label="{i18n>cfg_systemType}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<MultiComboBox items="{masterdataMdl>/systemType}" selectedKeys="{filterMdl>/systemType}">
+										<core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Created At" label="{i18n>cfg_createdAt}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<DateTimePicker value="{filterMdl>/createdAt}" displayFormat="{/userSettings/dateTimeFormat}" valueFormat="dd-MM-yyyy HH:mm:ss"  placeholder=" "/>
+								</fb:control>
+							</fb:FilterGroupItem>
+
+							<fb:FilterGroupItem name="Created By" label="{i18n>lbl_createdBy}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<Input value="{filterMdl>/createdBy}" />
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Updated At" label="{i18n>cfg_updatedAt}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<DateTimePicker value="{filterMdl>/updatedAt}" displayFormat="{/userSettings/dateTimeFormat}" valueFormat="dd-MM-yyyy HH:mm:ss"  placeholder=" "/>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Updated By" label="{i18n>lbl_updatedBy}" groupName="Group1" visibleInFilterBar="false">
+								<fb:control>
+									<Input value="{filterMdl>/updatedBy}" />
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Status" label="{i18n>lbl_status}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<MultiComboBox items="{masterdataMdl>/Status}" selectionChange=".onSelectionChange" selectedKeys="{filterMdl>/status}">
+										<core:Item key="{masterdataMdl>key}" text="{masterdataMdl>text}" />
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<!-- DynamicPage Content -->
+		<f:content>
+			<Table id="tableConfigurations" mode="SingleSelectMaster" itemPress="onListItemPress" inset="false" items="{path:'configurationsMdl>/'}" class="sapFDynamicPageAlignContent" width="auto" autoPopinMode="true" contextualWidth="Auto">
+				<headerToolbar>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button icon ="sap-icon://add-document" tooltip="{i18n>cfg_create}" type="Transparent" press="onCreateConfiguration"/>
+						<Button icon="sap-icon://action-settings" press="openPersoDialog" tooltip="{i18n>cfg_settings}"/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<infoToolbar>
+					<OverflowToolbar id="filterInfo">
+						<Title text="{= 'Items ('+ ${configurationsMdl>/}.length +')'}"/>
+						<ToolbarSpacer />
+						<!-- <Button tooltip="{i18n>cfg_removeAllFilters}" icon="sap-icon://decline" type="Transparent" press="onClearFilterPress" /> -->
+					</OverflowToolbar>
+				</infoToolbar>
+				<dependents>
+					<plugins:ColumnResizer columnResize="onColumnResize"/>
+					<columnmenu:Menu id="menu" beforeOpen="beforeOpenColumnMenu">
+						<columnmenu:QuickSort change="onSort">
+							<columnmenu:items>
+								<columnmenu:QuickSortItem></columnmenu:QuickSortItem>
+							</columnmenu:items>
+						</columnmenu:QuickSort>
+						<columnmenu:QuickGroup change="onGroup">
+							<columnmenu:items>
+								<columnmenu:QuickGroupItem></columnmenu:QuickGroupItem>
+							</columnmenu:items>
+						</columnmenu:QuickGroup>
+						<columnmenu:items>
+							<columnmenu:ActionItem icon="sap-icon://sort" label="Sort" press="onColumnHeaderItemPress"/>
+							<columnmenu:ActionItem icon="sap-icon://group-2" label="Group" press="onColumnHeaderItemPress"/>
+							<columnmenu:ActionItem icon="sap-icon://filter" label="Filter" press="onColumnHeaderItemPress"/>
+							<columnmenu:ActionItem icon="sap-icon://table-column" label="Columns" press="onColumnHeaderItemPress"/>
+						</columnmenu:items>
+					</columnmenu:Menu>
+				</dependents>
+				<noData>
+					<IllustratedMessage/>
+				</noData>
+				<columns>
+					<Column app:p13nKey="id_col" width="5rem" importance="High" headerMenu="menu" visible="true" hAlign="Center">
+						<Text text="{i18n>cfg_id}" />
+					</Column>
+					<Column app:p13nKey="name_col" importance="High" visible="true">
+						<Text text="{i18n>cfg_name}" />
+					</Column>
+					<Column app:p13nKey="type_col" importance="Medium" visible="true">
+						<Text text="{i18n>cfg_type}" />
+					</Column>
+					<Column app:p13nKey="end_point_col" importance="Medium" visible="true">
+						<Text text="{i18n>cfg_endpoint}" />
+					</Column>
+					<Column app:p13nKey="username_col" importance="Medium" visible="false">
+						<Text text="{i18n>cfg_username}" />
+					</Column>
+					<Column app:p13nKey="password_col" importance="Medium" visible="false">
+						<Text text="{i18n>cfg_password}" />
+					</Column>
+					<Column app:p13nKey="system_type_col" importance="Medium" visible="false">
+						<Text text="{i18n>cfg_systemType}" />
+					</Column>
+					<Column app:p13nKey="createdAt_col" importance="Low" hAlign="Center" visible="false">
+						<Text text="{i18n>cfg_createdAt}" />
+					</Column>
+					<Column app:p13nKey="createdBy_col" importance="Low" hAlign="Left" visible="false">
+						<Text text="{i18n>lbl_createdBy}" />
+					</Column>
+					<Column app:p13nKey="updatedAt_col" importance="Low" hAlign="Center" visible="false">
+						<Text text="{i18n>cfg_updatedAt}" />
+					</Column>
+					<Column app:p13nKey="updatedBy_col" importance="Low" hAlign="Left" visible="false">
+						<Text text="{i18n>lbl_updatedBy}" />
+					</Column>
+					<Column app:p13nKey="status_col" width="5rem" importance="Low" visible="true">
+						<Text text="{i18n>cfg_status}" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation">
+						<cells>
+							<ObjectIdentifier title="{configurationsMdl>id}" />
+							<Text text="{configurationsMdl>name}"/>
+							<Text text="{path:'configurationsMdl>type', formatter:'.typeFormatter'}"/>
+							<Text text="{configurationsMdl>endpoint}"/>
+							<Text text="{configurationsMdl>username}"/>
+							<Text class="hidePasswordInTextField" text="{configurationsMdl>password}"/>
+							<Text text="{path:'configurationsMdl>systemType', formatter:'.systemTypeFormatter'}"/>
+							<Text text="{parts:[{path:'/userSettings/dateTimeFormat'},{path:'configurationsMdl>createdAt'}], formatter:'.getDateTimeFormats'}"/>
+							<Text text="{configurationsMdl>createdBy}"/>
+							<Text text="{parts:[{path:'/userSettings/dateTimeFormat'},{path:'configurationsMdl>updatedAt'}], formatter:'.getDateTimeFormats'}"/>
+							<Text text="{configurationsMdl>updatedBy}"/>
+							<ObjectStatus text="{path:'configurationsMdl>status', formatter:'.formatter.statusText'}" state="{path:'configurationsMdl>status', formatter:'.formatter.statusState'}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+
+		<!-- DynamicPage Footer -->
+		<f:footer>
+			<OverflowToolbar>
+				<Button id="errorBtnMngConfig" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Reject" press="handleMessagePopoverPress" ariaHasPopup="Dialog" />
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

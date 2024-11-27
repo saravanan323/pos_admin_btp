@@ -1,0 +1,326 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "com.posadminbtp",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.15.1",
+      "toolsId": "ecb35631-ffbe-40ae-aa91-8fdec86d27ce"
+    },
+    "dataSources": {
+      "invoiceRemote": {
+        "uri": "/V2/Northwind/Northwind.svc/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.129.2",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.posadminbtp.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.f.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "com.posadminbtp",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "login",
+          "pattern": ":?query:",
+          "target": ["Login"]
+        },
+        {
+          "name": "home",
+          "pattern": "home",
+          "target": ["Dashboard"]
+        },
+        {
+          "name": "manage_configurations",
+          "pattern": "manage_configurations/{layout}",
+          "target": ["ManageConfigurations", "ConfigurationDetail"]
+        },
+        {
+          "name": "configuration_detail",
+          "pattern": "configuration_detail/{id}/{layout}",
+          "target": ["ManageConfigurations", "ConfigurationDetail"]
+        },
+        {
+          "name": "create_configuration",
+          "pattern": "create_configuration/{layout}",
+          "target": ["ManageConfigurations", "CreateConfiguration"]
+        },
+        {
+          "name": "manage_system",
+          "pattern": "manage_system/{layout}",
+          "target": ["ManageSystem", "SystemDetail"]
+        },
+        {
+          "name": "system_detail",
+          "pattern": "system_detail/{id}/{layout}",
+          "target": ["ManageSystem", "SystemDetail"]
+        },
+        {
+          "name": "create_system",
+          "pattern": "create_system/{layout}",
+          "target": ["ManageSystem", "CreateSystem"]
+        },
+        {
+          "name": "manage_user",
+          "pattern": "manage_user/{layout}",
+          "target": ["ManageUser", "UserDetail"]
+        },
+        {
+          "name": "user_detail",
+          "pattern": "user_detail/{id}/{layout}",
+          "target": ["ManageUser", "UserDetail"]
+        },
+        {
+          "name": "create_user",
+          "pattern": "create_user/{layout}",
+          "target": ["ManageUser", "CreateUser"]
+        },
+        {
+          "name": "manage_licence_key_control",
+          "pattern": "manage_licence_key_control/{layout}",
+          "target": ["ManageLicenceKeyControl", "LicenceKeyControlDetail"]
+        },
+        {
+          "name": "licence_key_control_detail",
+          "pattern": "licence_key_control_detail/{id}/{layout}",
+          "target": ["ManageLicenceKeyControl", "LicenceKeyControlDetail"]
+        },
+        {
+          "name": "create_licence_key_control",
+          "pattern": "create_licence_key_control/{layout}",
+          "target": ["ManageLicenceKeyControl", "CreateLicenceKeyControl"]
+        },
+        {
+          "name": "manage_synchronization",
+          "pattern": "manage_synchronization/{layout}",
+          "target": ["ManageSynchronization", "SynchronizationDetail"]
+        },
+        {
+          "name": "synchronization_detail",
+          "pattern": "synchronization_detail/{id}/{layout}",
+          "target": ["ManageSynchronization", "SynchronizationDetail"]
+        },
+        {
+          "name": "create_synchronization",
+          "pattern": "create_synchronization/{layout}",
+          "target": ["ManageSynchronization", "CreateSynchronization"]
+        }
+      ],
+      "targets": {
+        "AppUnified": {
+          "viewId": "AppUnified",
+          "viewName": "initial.AppUnified"
+        },
+        "Login": {
+          "viewId": "Login",
+          "viewName": "initial.Login"
+        },
+        "Dashboard": {
+          "viewId": "Dashboard",
+          "viewName": "initial.Dashboard"
+        },
+        "ManageConfigurations": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "ManageConfigurations",
+          "viewName": "configuration.ManageConfigurations",
+          "controlAggregation": "beginColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "ConfigurationDetail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "ConfigurationDetail",
+          "viewName": "configuration.ConfigurationDetail",
+          "controlAggregation": "midColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "CreateConfiguration": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "CreateConfiguration",
+          "viewName": "configuration.CreateConfiguration",
+          "controlAggregation": "midColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "ManageSystem": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "ManageSystem",
+          "viewName": "system.ManageSystem",
+          "controlAggregation": "beginColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "SystemDetail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "SystemDetail",
+          "viewName": "system.SystemDetail",
+          "controlAggregation": "midColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "CreateSystem": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "CreateSystem",
+          "viewName": "system.CreateSystem",
+          "controlAggregation": "midColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "ManageUser": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "ManageUser",
+          "viewName": "user.ManageUser",
+          "controlAggregation": "beginColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "UserDetail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "UserDetail",
+          "viewName": "user.UserDetail",
+          "controlAggregation": "midColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "CreateUser": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "CreateUser",
+          "viewName": "user.CreateUser",
+          "controlAggregation": "midColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "ManageLicenceKeyControl": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "ManageLicenceKeyControl",
+          "viewName": "licence_key_control.ManageLicenceKeyControl",
+          "controlAggregation": "beginColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "LicenceKeyControlDetail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "LicenceKeyControlDetail",
+          "viewName": "licence_key_control.LicenceKeyControlDetail",
+          "controlAggregation": "midColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "CreateLicenceKeyControl": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "CreateLicenceKeyControl",
+          "viewName": "licence_key_control.CreateLicenceKeyControl",
+          "controlAggregation": "midColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "ManageSynchronization": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "ManageSynchronization",
+          "viewName": "synchronization.ManageSynchronization",
+          "controlAggregation": "beginColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "SynchronizationDetail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "SynchronizationDetail",
+          "viewName": "synchronization.SynchronizationDetail",
+          "controlAggregation": "midColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        },
+        "CreateSynchronization": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "CreateSynchronization",
+          "viewName": "synchronization.CreateSynchronization",
+          "controlAggregation": "midColumnPages",
+          "controlId": "fcl",
+          "parent": "AppUnified"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "com.posadminbtp.initial.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}
