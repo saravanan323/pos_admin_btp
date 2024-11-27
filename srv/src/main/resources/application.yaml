@@ -1,11 +1,12 @@
 ---
 spring:
   datasource:
-    password: root
     embedded-database-connection: none
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/pos_admin
-    username: pos_admin
+    name: aSLeQyOxTVMV
+    url: postgres://5c03c30d9e7a:5bdfcc99da3d957eb7dd4bd7b@postgres-eb1c972d-85ed-4cbd-b49c-4b0979d51536.cqryblsdrbcs.us-east-1.rds.amazonaws.com:7300/aSLeQyOxTVMV
+    username: 5c03c30d9e7a
+    password: 5bdfcc99da3d957eb7dd4bd7b
   config:
     activate:
       on-profile: default
